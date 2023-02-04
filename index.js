@@ -10,9 +10,9 @@ const questions = [
   {
     que: "Whis one is the Markup language?",
     a: "Javascript",
-    b: "CSS",
+    b: "Python",
     c: "HTML",
-    d: "Python",
+    d: "CSS",
     correct: "c"
   },
   {
@@ -29,6 +29,7 @@ let questionBox = document.getElementById("question");
 let options = document.querySelectorAll(".options");
 // console.log(options);
 let submitBtn = document.getElementById("submitBtn");
+let rightAnswers = 0;
 
 let index = 0;
 const loadQuestion = () => {
@@ -42,8 +43,25 @@ const loadQuestion = () => {
 }
 
 const handleSubmit = () => {
+  let data = questions[index];
   let userAnswer = getUserAnswer();
-  console.log(userAnswer);
+  // console.log(userAnswer);
+
+
+  if (!userAnswer) {
+    alert("fill the data")
+  }
+
+  else if (userAnswer === data.correct) {
+    rightAnswers++;
+    index++;
+    loadQuestion();
+  }
+  else {
+    index++;
+    loadQuestion();
+  }
+
 }
 
 const getUserAnswer = () => {
