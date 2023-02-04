@@ -3,7 +3,7 @@ const questions = [
     que: "Whis one is the Scripting language?",
     a: "Javascript",
     b: "CSS",
-    C: "HTML",
+    c: "HTML",
     d: "Python",
     correct: "a"
   },
@@ -11,7 +11,7 @@ const questions = [
     que: "Whis one is the Markup language?",
     a: "Javascript",
     b: "CSS",
-    C: "HTML",
+    c: "HTML",
     d: "Python",
     correct: "c"
   },
@@ -27,8 +27,10 @@ const questions = [
 
 let questionBox = document.getElementById("question");
 let options = document.querySelectorAll(".options");
-console.log(options);
-let index = 1;
+// console.log(options);
+let submitBtn = document.getElementById("submitBtn");
+
+let index = 0;
 const loadQuestion = () => {
   let data = questions[index];
   questionBox.innerText = data.que;
@@ -39,4 +41,27 @@ const loadQuestion = () => {
   // IMP -> The "nextElementSibling" property returns the next element in the same tree level.In this case it'll be <label>
 }
 
+const handleSubmit = () => {
+  let userAnswer = getUserAnswer();
+  console.log(userAnswer);
+}
+
+const getUserAnswer = () => {
+  let userAns;
+  options.forEach((input) => {
+    if (input.checked) {
+      // console.log(input.value);
+      userAns = input.value;
+    }
+    // IMP .checked - Specifies whether a checkbox should be checked or not. It returns true or false.
+    // true - The checkbox is checked
+    // false - Default. The checkbox is not checked
+  });
+  return userAns;
+}
+
+submitBtn.addEventListener("click", handleSubmit);
+
 loadQuestion();
+
+
