@@ -125,7 +125,7 @@ const reset = () => {
 const endQuiz = () => {
   document.querySelector(".row").innerHTML = `
   <div  id="score">
-  <h1>You scored🚀 ${rightAnswers}/${total}</h1>
+  <h1>Great, You scored🚀 ${rightAnswers}/${total}</h1>
   <div class="btnsDiv">
   <button onclick="playAgain()">Play Again</button>
   </div>
