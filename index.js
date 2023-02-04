@@ -1,26 +1,42 @@
 const questions = [
   {
-    que: "Whis one is the Scripting language?",
-    a: "Javascript",
-    b: "CSS",
-    c: "HTML",
-    d: "Python",
-    correct: "a"
+    que: "Everything in React is a ________",
+    a: "Module",
+    b: "Component",
+    c: "Package",
+    d: "Class",
+    correct: "b"
   },
   {
-    que: "Whis one is the Markup language?",
-    a: "Javascript",
-    b: "Python",
-    c: "HTML",
-    d: "CSS",
+    que: "React JS was found in the year of",
+    a: "2012",
+    b: "2014",
+    c: "2013",
+    d: "2016",
     correct: "c"
   },
   {
-    que: "Whis one is the JS library?",
-    a: "AngularJS",
-    b: "ExpressJS",
-    c: "NodeJS",
-    d: "ReactJS",
+    que: "How many elements does a react component return?",
+    a: "5",
+    b: "3",
+    c: "1",
+    d: "Multiple",
+    correct: "c"
+  },
+  {
+    que: "What is Babel?",
+    a: "A transpiler",
+    b: "An interpreter",
+    c: "A Compiler",
+    d: "none of the above",
+    correct: "c"
+  },
+  {
+    que: "Which of the following method is true about referring parent class in React.js?",
+    a: "self()",
+    b: "inherits()",
+    c: "this()",
+    d: "super()",
     correct: "d"
   },
 ];
@@ -30,7 +46,8 @@ let options = document.querySelectorAll(".options");
 // console.log(options);
 let submitBtn = document.getElementById("submitBtn");
 let errMsg = document.getElementById("errMsg");
-errMsg.style.display = "none";
+let trueAns = document.getElementById("true");
+let falseAns = document.getElementById("false");
 
 let rightAnswers = 0;
 let wrongAnswers = 0;
@@ -38,13 +55,13 @@ let total = questions.length;
 
 let index = 0;
 const loadQuestion = () => {
-
+  // console.log(total)
   if (index === total) {
     endQuiz();
   }
   reset();//IMP reset() fn will reset the input checks.
   let data = questions[index];
-  questionBox.innerText = data.que;
+  questionBox.innerText = `${index + 1}. ${data.que}`;
   options[0].nextElementSibling.innerText = data.a;
   options[1].nextElementSibling.innerText = data.b;
   options[2].nextElementSibling.innerText = data.c;
@@ -53,22 +70,32 @@ const loadQuestion = () => {
 }
 
 const handleSubmit = () => {
+  console.log(index)
   let data = questions[index];
   let userAnswer = getUserAnswer();
   // console.log(userAnswer);
   if (userAnswer === undefined) {
-    errMsg.style.display = "block"
+    errMsg.style.color = "red"
   }
   else {
     if (userAnswer === data.correct) {
+      trueAns.innerText = "✔";
+      falseAns.innerText = "";
       rightAnswers++;
+
     }
     else {
       wrongAnswers++;
+      falseAns.innerText = "❌";
+      trueAns.innerText = "";
     }
     index++;
-    loadQuestion();
-    errMsg.style.display = "none"
+    setTimeout(() => {
+      falseAns.innerText = "";
+      trueAns.innerText = "";
+      loadQuestion();
+    }, 1500)
+    errMsg.style.color = "#fff"
   }
 
 }
@@ -93,9 +120,26 @@ const reset = () => {
   })
 }
 
+
+
 const endQuiz = () => {
-  document.querySelector(".box").innerHTML = `
-  <h1>You scored ${rightAnswers}/${total}</h1>`
+  document.querySelector(".row").innerHTML = `
+  <div  id="score">
+  <h1>You scored🚀 ${rightAnswers}/${total}</h1>
+  <div class="btnsDiv">
+  <button onclick="playAgain()">Play Again</button>
+  </div>
+  </div>
+  `
+}
+
+const playAgain = () => {
+  setTimeout(() => {
+    document.querySelector(".row").innerHTML = "<h3>LOADING...</h3>"
+  })
+  setTimeout(() => {
+    location.reload();
+  }, 2000)
 }
 
 submitBtn.addEventListener("click", handleSubmit);
