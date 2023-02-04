@@ -29,10 +29,20 @@ let questionBox = document.getElementById("question");
 let options = document.querySelectorAll(".options");
 // console.log(options);
 let submitBtn = document.getElementById("submitBtn");
+let errMsg = document.getElementById("errMsg");
+errMsg.style.display = "none";
+
 let rightAnswers = 0;
+let wrongAnswers = 0;
+let total = questions.length;
 
 let index = 0;
 const loadQuestion = () => {
+
+  if (index === total) {
+    endQuiz();
+  }
+  reset();//IMP reset() fn will reset the input checks.
   let data = questions[index];
   questionBox.innerText = data.que;
   options[0].nextElementSibling.innerText = data.a;
@@ -46,20 +56,19 @@ const handleSubmit = () => {
   let data = questions[index];
   let userAnswer = getUserAnswer();
   // console.log(userAnswer);
-
-
-  if (!userAnswer) {
-    alert("fill the data")
-  }
-
-  else if (userAnswer === data.correct) {
-    rightAnswers++;
-    index++;
-    loadQuestion();
+  if (userAnswer === undefined) {
+    errMsg.style.display = "block"
   }
   else {
+    if (userAnswer === data.correct) {
+      rightAnswers++;
+    }
+    else {
+      wrongAnswers++;
+    }
     index++;
     loadQuestion();
+    errMsg.style.display = "none"
   }
 
 }
@@ -76,6 +85,17 @@ const getUserAnswer = () => {
     // false - Default. The checkbox is not checked
   });
   return userAns;
+}
+
+const reset = () => {
+  return options.forEach((input) => {
+    input.checked = false;
+  })
+}
+
+const endQuiz = () => {
+  document.querySelector(".box").innerHTML = `
+  <h1>You scored ${rightAnswers}/${total}</h1>`
 }
 
 submitBtn.addEventListener("click", handleSubmit);
