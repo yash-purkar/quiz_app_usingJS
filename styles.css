@@ -105,12 +105,7 @@ button:hover {
   align-self: center;
 }
 
-#true {
-  font-weight: bold;
-  font-size: 20px;
-}
-
-#false {
+#trueFalse {
   font-weight: bold;
   font-size: 20px;
 }

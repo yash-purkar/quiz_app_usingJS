@@ -46,11 +46,9 @@ let options = document.querySelectorAll(".options");
 // console.log(options);
 let submitBtn = document.getElementById("submitBtn");
 let errMsg = document.getElementById("errMsg");
-let trueAns = document.getElementById("true");
-let falseAns = document.getElementById("false");
-console.log(falseAns)
-trueAns.style.color = "white";
-falseAns.style.color = "white";
+let trueFalse = document.getElementById("trueFalse");
+console.log(trueFalse)
+trueFalse.style.color = "white";
 
 let rightAnswers = 0;
 let wrongAnswers = 0;
@@ -82,19 +80,19 @@ const handleSubmit = () => {
   }
   else {
     if (userAnswer === data.correct) {
-      trueAns.style.color = "green";
-      // falseAns.innerText = "";
+      trueFalse.innerText = "✔"
+      trueFalse.style.color = "green";
       rightAnswers++;
 
     }
     else {
       wrongAnswers++;
-      falseAns.style.color = "red"
+      trueFalse.innerText = "✖"
+      trueFalse.style.color = "red"
     }
     index++;
     setTimeout(() => {
-      falseAns.style.color = "white";
-      trueAns.style.color = "white";
+      trueFalse.style.color = "white"
       loadQuestion();
     }, 1000)
     errMsg.style.color = "#fff"
