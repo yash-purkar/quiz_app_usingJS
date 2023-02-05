@@ -48,6 +48,9 @@ let submitBtn = document.getElementById("submitBtn");
 let errMsg = document.getElementById("errMsg");
 let trueAns = document.getElementById("true");
 let falseAns = document.getElementById("false");
+console.log(falseAns)
+trueAns.style.color = "white";
+falseAns.style.color = "white";
 
 let rightAnswers = 0;
 let wrongAnswers = 0;
@@ -79,22 +82,21 @@ const handleSubmit = () => {
   }
   else {
     if (userAnswer === data.correct) {
-      trueAns.innerText = "✔";
-      falseAns.innerText = "";
+      trueAns.style.color = "green";
+      // falseAns.innerText = "";
       rightAnswers++;
 
     }
     else {
       wrongAnswers++;
-      falseAns.innerText = "❌";
-      trueAns.innerText = "";
+      falseAns.style.color = "red"
     }
     index++;
     setTimeout(() => {
-      falseAns.innerText = "";
-      trueAns.innerText = "";
+      falseAns.style.color = "white";
+      trueAns.style.color = "white";
       loadQuestion();
-    }, 1500)
+    }, 1000)
     errMsg.style.color = "#fff"
   }
 
@@ -123,7 +125,18 @@ const reset = () => {
 
 
 const endQuiz = () => {
-  document.querySelector(".row").innerHTML = `
+  if (rightAnswers < 3) {
+    document.querySelector(".row").innerHTML = `
+    <div  id="score">
+    <h1>Ohh! You scored😞 ${rightAnswers}/${total}</h1>
+    <div class="btnsDiv">
+    <button onclick="playAgain()">Play Again</button>
+    </div>
+    </div>
+    `
+  }
+  else {
+    document.querySelector(".row").innerHTML = `
   <div  id="score">
   <h1>Great, You scored🚀 ${rightAnswers}/${total}</h1>
   <div class="btnsDiv">
@@ -131,6 +144,7 @@ const endQuiz = () => {
   </div>
   </div>
   `
+  }
 }
 
 const playAgain = () => {
